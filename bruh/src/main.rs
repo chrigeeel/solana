@@ -89,7 +89,7 @@ fn all_indices_present(shreds: &[Shred]) -> bool {
 
     for shred in shreds {
         indices.insert(shred.index());
-        if shred.index > max_index {
+        if shred.index() > max_index {
             max_index = shred.index();
         }
     }
