@@ -72,9 +72,9 @@ fn main() -> Result<(), Box<dyn Error>> {
         println!("Some indices are missing.");
     }
 
-    let deshred_payload = Shredder::deshred(&data_shreds)?;
+    let deshred_payload = Shredder::deshred(&data_shreds).unwrap();
 
-    let entries = bincode::deserialize::<Vec<Entry>>(&deshred_payload)?;
+    let entries = bincode::deserialize::<Vec<Entry>>(&deshred_payload).unwrap();
 
     println!("Entires {:?}", entries);
 
