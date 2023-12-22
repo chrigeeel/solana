@@ -12,7 +12,7 @@ use {
     },
 };
 
-fn main() -> Result<()> {
+fn main() -> Result<(), E> {
     // Bind the socket to a local address
     let socket = UdpSocket::bind("0.0.0.0:8002")?;
     println!("Listening on {}", socket.local_addr()?);
