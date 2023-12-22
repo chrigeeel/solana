@@ -17,6 +17,7 @@ members = [
     "bench-streamer",
     "bench-tps",
     "bloom",
+    "bruh",
     "bucket_map",
     "cargo-registry",
     "clap-utils",
