@@ -31,26 +31,15 @@ fn main() -> Result<(), Box<dyn Error>> {
     let data_shreds: &mut Vec<Shred> = &mut [].into();
 
     loop {
-        let mut buf = [0u8; 2048];  // A buffer to store the incoming data
+        let mut buf = [0u8; 2048]; 
 
-        // Receive data from the socket
         let (amt, src) = socket.recv_from(&mut buf)?;
 
-        // `amt` is the number of bytes received
-        // `src` is the source address of the sender
-
-        //println!("Received {} bytes from {}", amt, src);
-
-        // Handle the data (for now, just print it)
         let received_data = &buf[..amt];
         if received_data.len() == 21 || received_data.len() == 22 {
             continue
         }
         let shred = Shred::new_from_serialized_shred(received_data.to_vec())?;
-        if !shred.is_data() {
-            continue
-        }
-
 
         if shred.slot() > parsing_slot + 10 {
             break;
@@ -76,7 +65,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let entries = bincode::deserialize::<Vec<Entry>>(&deshred_payload).unwrap();
 
-    println!("Entires {:?}", entries);
+    println!("Entries {:?}", entries);
 
     Ok(())
 }
