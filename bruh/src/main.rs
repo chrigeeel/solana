@@ -24,7 +24,7 @@ fn main() -> Result<(), E> {
     })?;
     let parsing_slot = current_slot + 10;
 
-    let data_shreds: Vec<Shred> = &mut [].into();
+    let data_shreds: &mut Vec<Shred> = &mut [].into();
 
     loop {
         let mut buf = [0u8; 2048];  // A buffer to store the incoming data
