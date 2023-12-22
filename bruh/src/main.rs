@@ -66,14 +66,11 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     data_shreds.sort_by_key(|b| b.index());
 
-    let serialized = serde_json::to_string(&data_shreds)?;
-
-    // Create or overwrite a file
-    let mut file = File::create("ns.json")?;
-
-    // Write the JSON string to the file
-    file.write_all(serialized.as_bytes())?;
-
+    if all_indices_present(&data_shreds) {
+        println!("All indices are present.");
+    } else {
+        println!("Some indices are missing.");
+    }
 
     let deshred_payload = Shredder::deshred(&data_shreds)?;
 
@@ -82,4 +79,21 @@ fn main() -> Result<(), Box<dyn Error>> {
     println!("Entires {:?}", entries);
 
     Ok(())
+}
+
+use std::collections::HashSet;
+
+fn all_indices_present(shreds: &[Shred]) -> bool {
+    let mut indices = HashSet::new();
+    let mut max_index = 0;
+
+    for shred in shreds {
+        indices.insert(shred.index);
+        if shred.index > max_index {
+            max_index = shred.index;
+        }
+    }
+
+    // Check if all indices from 0 to max_index are present
+    (0..=max_index).all(|index| indices.contains(&index))
 }

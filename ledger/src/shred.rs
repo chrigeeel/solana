@@ -224,7 +224,7 @@ struct CodingShredHeader {
     position: u16, // [0..num_coding_shreds)
 }
 
-#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub enum Shred {
     ShredCode(ShredCode),
     ShredData(ShredData),
