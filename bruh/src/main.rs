@@ -88,9 +88,9 @@ fn all_indices_present(shreds: &[Shred]) -> bool {
     let mut max_index = 0;
 
     for shred in shreds {
-        indices.insert(shred.index);
+        indices.insert(shred.index());
         if shred.index > max_index {
-            max_index = shred.index;
+            max_index = shred.index();
         }
     }
 
