@@ -10,60 +10,70 @@ edition.workspace = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-assert_matches = { workspace = true }
+base64 = { workspace = true }
 bincode = { workspace = true }
-bitflags = { workspace = true }
-byteorder = { workspace = true }
+bs58 = { workspace = true }
+bytes = { workspace = true }
 chrono = { workspace = true, features = ["default", "serde"] }
-chrono-humanize = { workspace = true }
 crossbeam-channel = { workspace = true }
 dashmap = { workspace = true, features = ["rayon", "raw-api"] }
-fs_extra = { workspace = true }
+eager = { workspace = true }
+etcd-client = { workspace = true, features = ["tls"] }
 futures = { workspace = true }
+histogram = { workspace = true }
 itertools = { workspace = true }
 lazy_static = { workspace = true }
-libc = { workspace = true }
 log = { workspace = true }
 lru = { workspace = true }
-mockall = { workspace = true }
-num_cpus = { workspace = true }
+min-max-heap = { workspace = true }
 num_enum = { workspace = true }
-prost = { workspace = true }
+prio-graph = { workspace = true }
+quinn = { workspace = true }
 rand = { workspace = true }
 rand_chacha = { workspace = true }
 rayon = { workspace = true }
-reed-solomon-erasure = { workspace = true, features = ["simd-accel"] }
-scopeguard = { workspace = true }
+rcgen = { workspace = true }
+rolling-file = { workspace = true }
+rustls = { workspace = true }
 serde = { workspace = true }
 serde_bytes = { workspace = true }
-sha2 = { workspace = true }
-solana-account-decoder = { workspace = true }
+serde_derive = { workspace = true }
 solana-accounts-db = { workspace = true }
-solana-bpf-loader-program = { workspace = true }
+solana-bloom = { workspace = true }
+solana-client = { workspace = true }
 solana-cost-model = { workspace = true }
 solana-entry = { workspace = true }
 solana-frozen-abi = { workspace = true }
 solana-frozen-abi-macro = { workspace = true }
+solana-geyser-plugin-manager = { workspace = true }
+solana-gossip = { workspace = true }
+solana-ledger = { workspace = true }
 solana-measure = { workspace = true }
 solana-metrics = { workspace = true }
+solana-net-utils = { workspace = true }
 solana-perf = { workspace = true }
+solana-poh = { workspace = true }
 solana-program-runtime = { workspace = true }
+solana-quic-client = { workspace = true }
 solana-rayon-threadlimit = { workspace = true }
+solana-rpc = { workspace = true }
+solana-rpc-client-api = { workspace = true }
 solana-runtime = { workspace = true }
 solana-sdk = { workspace = true }
-solana-stake-program = { workspace = true }
-solana-storage-bigtable = { workspace = true }
-solana-storage-proto = { workspace = true }
+solana-send-transaction-service = { workspace = true }
+solana-streamer = { workspace = true }
+solana-tpu-client = { workspace = true }
 solana-transaction-status = { workspace = true }
+solana-turbine = { workspace = true }
+solana-unified-scheduler-pool = { workspace = true }
+solana-version = { workspace = true }
 solana-vote = { workspace = true }
 solana-vote-program = { workspace = true }
-spl-token = { workspace = true, features = ["no-entrypoint"] }
-spl-token-2022 = { workspace = true, features = ["no-entrypoint"] }
-static_assertions = { workspace = true }
+solana-wen-restart = { workspace = true }
 strum = { workspace = true, features = ["derive"] }
 strum_macros = { workspace = true }
+sys-info = { workspace = true }
 tempfile = { workspace = true }
 thiserror = { workspace = true }
 tokio = { workspace = true, features = ["full"] }
-tokio-stream = { workspace = true }
 trees = { workspace = true }
