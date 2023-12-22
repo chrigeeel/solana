@@ -20,11 +20,11 @@ fn main() -> io::Result<()> {
     let client = RpcClient::new("https://proportionate-powerful-leaf.solana-mainnet.quiknode.pro/79c03ee439e0288092c46640d7cf521a1c598e19/");
 
     let current_slot = client.get_slot_with_commitment(CommitmentConfig{
-        commitment: "processed"
+        commitment: solana_sdk::commitment_config::CommitmentLevel::Processed,
     })?;
     let parsing_slot = current_slot + 10;
 
-    let data_shreds: Vec<Shred> = []; 
+    let data_shreds: Vec<Shred> = [].into();
 
     loop {
         let mut buf = [0u8; 2048];  // A buffer to store the incoming data
@@ -44,7 +44,7 @@ fn main() -> io::Result<()> {
             continue
         }
 
-        println!("Parsed shred {:?}", shred.slot(), shred.is_data());
+        println!("Parsed shred {:?} {:?}", shred.slot(), shred.is_data());
 
         if shred.is_data() && shred.slot() == parsing_slot {
             data_shreds.append(shred)
@@ -55,7 +55,7 @@ fn main() -> io::Result<()> {
         }
     }
 
-    println!("Got shreds {:?}", len(data_shreds));
+    println!("Got shreds {:?}", data_shreds.len());
 
     Ok(())
 }
