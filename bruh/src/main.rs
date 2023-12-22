@@ -40,6 +40,9 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         // Handle the data (for now, just print it)
         let received_data = &buf[..amt];
+        if received_data.len() == 21 {
+            continue
+        }
         let shred = Shred::new_from_serialized_shred(received_data.to_vec())?;
         if !shred.is_data() {
             continue
