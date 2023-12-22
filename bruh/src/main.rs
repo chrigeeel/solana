@@ -64,6 +64,8 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     println!("Got shreds {:?}", data_shreds.len());
 
+    data_shreds.sort_by_key(|b| b.index());
+
     let deshred_payload = Shredder::deshred(&data_shreds)?;
 
     let entries = bincode::deserialize::<Vec<Entry>>(&deshred_payload)?;
