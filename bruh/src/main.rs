@@ -48,17 +48,15 @@ fn main() -> Result<(), Box<dyn Error>> {
             continue
         }
 
-        println!("Parsed shred {:?} {:?}", shred.slot(), shred.is_data());
 
         if shred.slot() > parsing_slot + 10 {
             break;
         }
 
         if shred.is_data() && shred.slot() == parsing_slot {
+            println!("Parsed shred {:?} {:?}", shred.slot(), shred.is_data());
             data_shreds.push(shred.clone())
         }
-
-
     }
 
     println!("Got shreds {:?}", data_shreds.len());
