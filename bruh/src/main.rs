@@ -11,6 +11,7 @@ use {
         max_entries_per_n_shred, max_ticks_per_n_shreds, ProcessShredsStats, ReedSolomonCache,
         Shred, ShredFlags, Shredder, DATA_SHREDS_PER_FEC_BLOCK, LEGACY_SHRED_DATA_CAPACITY,
     },
+    solana_entry::entry::{create_ticks, Entry},
 };
 
 use bincode::{deserialize, serialize};
