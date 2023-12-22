@@ -65,11 +65,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let deshred_payload = Shredder::deshred(&data_shreds)?;
 
-    let entries = bincode::deserialize::<Vec<Entry>>(&deshred_payload).map_err(|e| {
-        BlockstoreError::InvalidShredData(Box::new(bincode::ErrorKind::Custom(format!(
-            "could not reconstruct entries: {e:?}"
-        ))))
-    })?;
+    let entries = bincode::deserialize::<Vec<Entry>>(&deshred_payload)?;
 
     println!("Entires {:?}", entries);
 
