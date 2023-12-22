@@ -66,6 +66,15 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     data_shreds.sort_by_key(|b| b.index());
 
+    let serialized = serde_json::to_string(&data_shreds)?;
+
+    // Create or overwrite a file
+    let mut file = File::create("ns.json")?;
+
+    // Write the JSON string to the file
+    file.write_all(serialized.as_bytes())?;
+
+
     let deshred_payload = Shredder::deshred(&data_shreds)?;
 
     let entries = bincode::deserialize::<Vec<Entry>>(&deshred_payload)?;
