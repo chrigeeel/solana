@@ -4,8 +4,8 @@ use std::io;
 
 use {
     solana_ledger::shred::{
-            max_ticks_per_n_shreds, ErasureSetId, ProcessShredsStats, ReedSolomonCache,
-            Shred, ShredData, ShredId, ShredType, Shredder,
+        max_entries_per_n_shred, max_ticks_per_n_shreds, ProcessShredsStats, ReedSolomonCache,
+        Shred, ShredFlags, Shredder, DATA_SHREDS_PER_FEC_BLOCK, LEGACY_SHRED_DATA_CAPACITY,
     },
 };
 
