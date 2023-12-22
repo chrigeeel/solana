@@ -1,5 +1,6 @@
 use std::{net::UdpSocket, thread::current};
 use std::io;
+use std::error::Error;
 
 use solana_client::rpc_client::RpcClient;
 use solana_sdk::commitment_config::CommitmentConfig;
