@@ -13,6 +13,8 @@ use {
     },
 };
 
+use bincode::{deserialize, serialize};
+
 fn main() -> Result<(), Box<dyn Error>> {
     // Bind the socket to a local address
     let socket = UdpSocket::bind("0.0.0.0:8002")?;
@@ -36,7 +38,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         // `amt` is the number of bytes received
         // `src` is the source address of the sender
 
-        println!("Received {} bytes from {}", amt, src);
+        //println!("Received {} bytes from {}", amt, src);
 
         // Handle the data (for now, just print it)
         let received_data = &buf[..amt];
@@ -60,6 +62,16 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     println!("Got shreds {:?}", data_shreds.len());
+
+    let deshred_payload = Shredder::deshred(&data_shreds)?;
+
+    let entries = bincode::deserialize::<Vec<Entry>>(&deshred_payload).map_err(|e| {
+        BlockstoreError::InvalidShredData(Box::new(bincode::ErrorKind::Custom(format!(
+            "could not reconstruct entries: {e:?}"
+        ))))
+    })?;
+
+    println!("Entires {:?}", entries);
 
     Ok(())
 }
