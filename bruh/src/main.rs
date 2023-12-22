@@ -1,5 +1,8 @@
-use std::net::UdpSocket;
+use std::{net::UdpSocket, thread::current};
 use std::io;
+
+use solana_client::rpc_client::RpcClient;
+use solana_sdk::commitment_config::CommitmentConfig;
 
 
 use {
@@ -11,8 +14,17 @@ use {
 
 fn main() -> io::Result<()> {
     // Bind the socket to a local address
-    let socket = UdpSocket::bind("127.0.0.1:8002")?;
+    let socket = UdpSocket::bind("0.0.0.0:8002")?;
     println!("Listening on {}", socket.local_addr()?);
+
+    let client = RpcClient::new("https://proportionate-powerful-leaf.solana-mainnet.quiknode.pro/79c03ee439e0288092c46640d7cf521a1c598e19/");
+
+    let current_slot = client.get_slot_with_commitment(CommitmentConfig{
+        commitment: "processed"
+    })?;
+    let parsing_slot = current_slot + 10;
+
+    let data_shreds: Vec<Shred> = []; 
 
     loop {
         let mut buf = [0u8; 2048];  // A buffer to store the incoming data
@@ -27,6 +39,23 @@ fn main() -> io::Result<()> {
 
         // Handle the data (for now, just print it)
         let received_data = &buf[..amt];
-        println!("Received data: {:?}", received_data);
+        let shred = Shred::new_from_serialized_shred(received_data)?;
+        if !shred.is_data() {
+            continue
+        }
+
+        println!("Parsed shred {:?}", shred.slot(), shred.is_data());
+
+        if shred.is_data() && shred.slot() == parsing_slot {
+            data_shreds.append(shred)
+        }
+
+        if shred.slot() > parsing_slot + 10 {
+            break;
+        }
     }
+
+    println!("Got shreds {:?}", len(data_shreds));
+
+    Ok(())
 }
