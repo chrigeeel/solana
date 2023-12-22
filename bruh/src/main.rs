@@ -24,7 +24,7 @@ fn main() -> Result<(), E> {
     })?;
     let parsing_slot = current_slot + 10;
 
-    let data_shreds: Vec<Shred> = [].into();
+    let data_shreds: Vec<Shred> = &mut [].into();
 
     loop {
         let mut buf = [0u8; 2048];  // A buffer to store the incoming data
@@ -39,7 +39,7 @@ fn main() -> Result<(), E> {
 
         // Handle the data (for now, just print it)
         let received_data = &buf[..amt];
-        let shred = Shred::new_from_serialized_shred(received_data)?;
+        let shred = Shred::new_from_serialized_shred(received_data.to_vec())?;
         if !shred.is_data() {
             continue
         }
@@ -47,7 +47,7 @@ fn main() -> Result<(), E> {
         println!("Parsed shred {:?} {:?}", shred.slot(), shred.is_data());
 
         if shred.is_data() && shred.slot() == parsing_slot {
-            data_shreds.append(shred)
+            data_shreds.push(shred)
         }
 
         if shred.slot() > parsing_slot + 10 {
